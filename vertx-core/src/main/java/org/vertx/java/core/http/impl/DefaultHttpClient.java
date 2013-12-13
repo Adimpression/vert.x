@@ -35,6 +35,7 @@ import org.vertx.java.core.impl.*;
 import org.vertx.java.core.net.impl.TCPSSLHelper;
 import org.vertx.java.core.net.impl.VertxEventLoopGroup;
 
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLParameters;
@@ -470,6 +471,14 @@ public class DefaultHttpClient implements HttpClient {
   public String getTrustStorePassword() {
     checkClosed();
     return tcpHelper.getTrustStorePassword();
+  }
+
+  @Override
+  public HttpClient setContext(SSLContext context) {
+    checkClosed();
+    checkConfigurable();
+    tcpHelper.setContext(context);
+    return this;
   }
 
   @Override
